@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Secure Share Me</title>
+    <meta name="keywords"
+          content="Secure Share Me, SecureShareMe, Secure Share, Share content securely, share securely, encrypt content, encrypt and share">
+    <meta name="description"
+          content="Share content securely over internet. Everybody shares usernames, passwords, account numbers and sensitive data with friends and
+            family. This data can be compromised during transmission, or when stored in the sender or recipient
+            mailbox. Sharing cannot be avoided, but can be made secure. We will do it for you!">
+    <!-- Bootstrap Stylesheet-->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- External Stylesheet-->
+    <link href="/stylesheets/style.css" rel="stylesheet" media="screen">
+    <!--Javascript library-->
+    <script type='text/javascript' src='/javascripts/jquery-1.9.1.js'></script>
+    <script type='text/javascript' src='/javascripts/sjcl.js'></script>
+    <!--Custom Javascript library-->
+    <script type='text/javascript' src='/javascripts/utils.js'></script>
+    <script type='text/javascript' src='/javascripts/index.js'></script>
+    <!-- Bootstrap Javascript-->
+    <script type='text/javascript' src='/bootstrap/js/bootstrap.js'></script>
+    <script type='text/javascript' src='/bootstrap/js/jquery.bsAlerts.min.js'></script>
+    <script type='text/javascript' src='/javascripts/webevents.js'></script>
+
+</head>
+<body>
+<!--Main container-->
+<div class="container">
+<!--Navigation-->
+<div class="row nav-reduceheight">
+    <div class="span10 offset1">
+        <ul class="nav nav-pills pull-right">
+            <button id="contact" type="button" class="btn btn-inverse btn-mini objectspacing"
+                    data-content="secureshareme@watermelonlabs.com" data-placement="bottom"
+                    data-trigger="hover">
+                <a class="hyperlink-nounderscore" href="mailto:secureshareme@watermelonlabs.com">Contact Us</a>
+            </button>
+        </ul>
+    </div>
+</div>
+
+<!--Logo-->
+<div class="row spacing">
+    <div class="span10 offset1 text-center">
+        <!-- For logo  -->
+        <img class="logo" src="/images/ssm_logo.png" alt="SecureShareMe">
+    </div>
+</div>
+
+<!--Secureshareme description-->
+<div class="row">
+    <div class="span10 offset1 text-center">
+        <p class="muted">
+            Everybody shares usernames, passwords, account numbers and sensitive data with friends and
+            family. <br/>This data can be compromised during transmission, or when stored in the sender or recipient
+            mailbox. </br> Sharing cannot be avoided, but can be made secure. We will do it for you!</p>
+    </div>
+</div>
+
+<!--Alerts box-->
+<div class="row">
+    <div data-alerts="alerts" class="span10 offset1">
+    </div>
+</div>
+
+<!--Text area-->
+<div class="row">
+    <div class="span10 offset1">
+        <h5><em>Enter message below.</em></h5>
+        <textarea class="message_box textarea" rows="5" id="input_txt" name="input_txt"
+                  placeholder="Enter your message here."></textarea>
+    </div>
+</div>
+
+<!--Secure message button-->
+<div class="row">
+    <div class="span10 offset1 objectspacing text-right">
+        <button onClick="encryptMsg('#input_txt');" id="secure_btn"
+                class="btn btn-primary btn-medium btn-success">Secure Message
+        </button>
+        <img src="/images/LoadingBar.gif" class="loading-gif" id="loading_image">
+    </div>
+</div>
+
+<!--Sharing options box-->
+<div class="row objectspacing">
+<div class="span5 offset1">
+    <!--Message expiration options-->
+    <div class="row">
+        <div class="span5">
+            <b>Message expires in</b>
+            <select id="expire_option">
+                <option value="+5m">5 mins after first view</option>
+                <option value="24h">24 hours</option>
+                <option value="1w">1 week</option>
+                <option value="1m">1 month</option>
+            </select>
+        </div>
+    </div>
+    <!--Message expiration options-->
+    <div class="row">
+        <div class="span5">
+            <div class="pull-left">
+                <b>Share URL and pin</b>
+            </div>
+            <div class="pull-left radiobuttons">
+                <label class="radio">
+                    <input type="radio" name="share_option" value="separately" checked>
+                    <em>Separately (better security)</em>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="share_option" value="one_link">
+                    <em>Combined in one link </em>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--URL & PIN sharing option-->
+<div class="span5">
+<!--URL box-->
+<div class="row">
+    <div class="span5">
+        <!--URL text-box-->
+        <div class="row">
+            <div class="span5">
+                <b>URL</b>
+                <input class="urlpin-textbox" type="text" id="share_url_txt"
+                       placeholder="Generated URL will appear here">
+            </div>
+        </div>
+
+        <!--URL share options-->
+        <div class="row">
+            <div class="span5">
+                <div class="pull-right">
+                    <em>Share via</em>
+                    <a href="javascript:shareVia('gmail','url');" id="shareurlgmail">
+                        <img src="/images/gmail.png" class="btn sharebutton-img">
+                    </a>
+                    <a href="javascript:shareVia('yahoo','url');">
+                        <img src="/images/yahoo.png" class="btn sharebutton-img">
+                    </a>
+                    <a href="javascript:shareVia('hotmail','url');">
+                        <img src="/images/outlook.png" class="btn sharebutton-img">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--PIN box-->
+<div id="share_pin_box1" class="row objectspacing">
+<div class="span5">
+<!--PIN text-box-->
+<div class="row">
+    <div class="span5">
+        <b>PIN</b>
+        <input class="urlpin-textbox" type="text" id="share_pin_txt"
+               placeholder="Generated PIN will appear here">
+    </div>
+</div>
+
+<!--PIN share options-->
+<div class="row">
+    <div class="span5">
+        <div class="pull-right">
+            <em>Share via</em>
+            <a href="javascript:inputPhoneNumber();">
+                <img src="/images/sms.png" class="btn sharebutton-img">
+            </a>
+            <a href="javascript:shareVia('gmail','pin');">
+                <img src="/images/gmail.png" class="btn sharebutton-img">
+            </a>
+            <a href="javascript:shareVia('yahoo','pin');">
+                <img src="/images/yahoo.png" class="btn sharebutton-img">
+            </a>
+            <a href="javascript:shareVia('hotmail','pin');">
+                <img src="/images/outlook.png" class="btn" style="height:20px;padding: 2px">
+            </a>
+        </div>
+    </div>
+</div>
+
+<!--Phone number entry box-->
+<div class="row objectspacing">
+<!--SMS status-->
+<div id="sms_status" class="span4 offset1 phonemumber-box">
+    <!--Phone number input-->
+</div>
+<div id="sms_input" class="span4 offset1 phonemumber-box">
+<!--Select country-->
+<select id="sms_country" class="country-select">
+<option value="1" selected="">United States</option>
+<option value="93">Afghanistan</option>
+<option value="000">Aland Islands</option>
+<option value="355">Albania</option>
+<option value="213">Algeria</option>
+<option value="1684">American Samoa</option>
+<option value="376">Andorra</option>
+<option value="244">Angola</option>
+<option value="1264">Anguilla</option>
+<option value="672">Antarctica</option>
+<option value="1">Antigua and Barbuda</option>
+<option value="54">Argentina</option>
+<option value="374">Armenia</option>
+<option value="297">Aruba</option>
+<option value="61">Australia</option>
+<option value="43">Austria</option>
+<option value="994">Azerbaijan</option>
+<option value="1242">Bahamas</option>
+<option value="973">Bahrain</option>
+<option value="880">Bangladesh</option>
+<option value="1246">Barbados</option>
+<option value="375">Belarus</option>
+<option value="32">Belgium</option>
+<option value="501">Belize</option>
+<option value="229">Benin</option>
+<option value="1">Bermuda</option>
+<option value="975">Bhutan</option>
+<option value="591">Bolivia</option>
+<option value="387">Bosnia and Herzegovina</option>
+<option value="267">Botswana</option>
+<option value="55">Brazil</option>
+<option value="000">British Indian Ocean Territory</option>
+<option value="673">Brunei Darussalam</option>
+<option value="359">Bulgaria</option>
+<option value="226">Burkina Faso</option>
+<option value="257">Burundi</option>
+<option value="855">Cambodia</option>
+<option value="237">Cameroon</option>
+<option value="1">Canada</option>
+<option value="238">Cape Verde</option>
+<option value="000">Caribbean Nations</option>
+<option value="1">Cayman Islands</option>
+<option value="236">Central African Republic</option>
+<option value="235">Chad</option>
+<option value="56">Chile</option>
+<option value="86">China</option>
+<option value="61">Christmas Island</option>
+<option value="61">Cocos (Keeling) Islands</option>
+<option value="57">Colombia</option>
+<option value="269">Comoros</option>
+<option value="242">Congo</option>
+<option value="682">Cook Islands</option>
+<option value="506">Costa Rica</option>
+<option value="225">Cote D'Ivoire (Ivory Coast)</option>
+<option value="385">Croatia</option>
+<option value="53">Cuba</option>
+<option value="357">Cyprus</option>
+<option value="420">Czech Republic</option>
+<option value="243">Democratic Republic of the Congo</option>
+<option value="45">Denmark</option>
+<option value="253">Djibouti</option>
+<option value="1767">Dominica</option>
+<option value="1809">Dominican Republic</option>
+<option value="000">East Timor</option>
+<option value="593">Ecuador</option>
+<option value="20">Egypt</option>
+<option value="503">El Salvador</option>
+<option value="240">Equatorial Guinea</option>
+<option value="291">Eritrea</option>
+<option value="372">Estonia</option>
+<option value="251">Ethiopia</option>
+<option value="500">Falkland Islands (Malvinas)</option>
+<option value="298">Faroe Islands</option>
+<option value="691">Federated States of Micronesia</option>
+<option value="679">Fiji</option>
+<option value="358">Finland</option>
+<option value="33">France</option>
+<option value="594">French Guiana</option>
+<option value="689">French Polynesia</option>
+<option value="000">French Southern Territories</option>
+<option value="241">Gabon</option>
+<option value="220">Gambia</option>
+<option value="995">Georgia</option>
+<option value="49">Germany</option>
+<option value="233">Ghana</option>
+<option value="350">Gibraltar</option>
+<option value="30">Greece</option>
+<option value="299">Greenland</option>
+<option value="1473">Grenada</option>
+<option value="590">Guadeloupe</option>
+<option value="1671">Guam</option>
+<option value="502">Guatemala</option>
+<option value="44">Guernsey</option>
+<option value="224">Guinea</option>
+<option value="245">Guinea-Bissau</option>
+<option value="592">Guyana</option>
+<option value="509">Haiti</option>
+<option value="504">Honduras</option>
+<option value="852">Hong Kong</option>
+<option value="36">Hungary</option>
+<option value="354">Iceland</option>
+<option value="91">India</option>
+<option value="62">Indonesia</option>
+<option value="98">Iran</option>
+<option value="964">Iraq</option>
+<option value="353">Ireland</option>
+<option value="44">Isle of Man</option>
+<option value="972">Israel</option>
+<option value="39">Italy</option>
+<option value="1">Jamaica</option>
+<option value="81">Japan</option>
+<option value="44">Jersey</option>
+<option value="962">Jordan</option>
+<option value="7">Kazakhstan</option>
+<option value="254">Kenya</option>
+<option value="686">Kiribati</option>
+<option value="82">Korea</option>
+<option value="850">Korea (North)</option>
+<option value="000">Kosovo</option>
+<option value="965">Kuwait</option>
+<option value="996">Kyrgyzstan</option>
+<option value="856">Laos</option>
+<option value="371">Latvia</option>
+<option value="961">Lebanon</option>
+<option value="266">Lesotho</option>
+<option value="231">Liberia</option>
+<option value="218">Libya</option>
+<option value="423">Liechtenstein</option>
+<option value="370">Lithuania</option>
+<option value="352">Luxembourg</option>
+<option value="853">Macao</option>
+<option value="389">Macedonia</option>
+<option value="261">Madagascar</option>
+<option value="265">Malawi</option>
+<option value="60">Malaysia</option>
+<option value="960">Maldives</option>
+<option value="223">Mali</option>
+<option value="356">Malta</option>
+<option value="692">Marshall Islands</option>
+<option value="596">Martinique</option>
+<option value="222">Mauritania</option>
+<option value="230">Mauritius</option>
+<option value="269">Mayotte</option>
+<option value="52">Mexico</option>
+<option value="373">Moldova</option>
+<option value="377">Monaco</option>
+<option value="976">Mongolia</option>
+<option value="382">Montenegro</option>
+<option value="1664">Montserrat</option>
+<option value="212">Morocco</option>
+<option value="258">Mozambique</option>
+<option value="95">Myanmar</option>
+<option value="264">Namibia</option>
+<option value="674">Nauru</option>
+<option value="977">Nepal</option>
+<option value="31">Netherlands</option>
+<option value="599">Netherlands Antilles</option>
+<option value="687">New Caledonia</option>
+<option value="64">New Zealand</option>
+<option value="505">Nicaragua</option>
+<option value="227">Niger</option>
+<option value="234">Nigeria</option>
+<option value="683">Niue</option>
+<option value="672">Norfolk Island</option>
+<option value="1670">Northern Mariana Islands</option>
+<option value="47">Norway</option>
+<option value="968">Oman</option>
+<option value="92">Pakistan</option>
+<option value="680">Palau</option>
+<option value="970">Palestinian Territory</option>
+<option value="507">Panama</option>
+<option value="675">Papua New Guinea</option>
+<option value="595">Paraguay</option>
+<option value="51">Peru</option>
+<option value="63">Philippines</option>
+<option value="870">Pitcairn</option>
+<option value="48">Poland</option>
+<option value="351">Portugal</option>
+<option value="1">Puerto Rico</option>
+<option value="974">Qatar</option>
+<option value="262">Reunion</option>
+<option value="40">Romania</option>
+<option value="7">Russian Federation</option>
+<option value="250">Rwanda</option>
+<option value="290">Saint Helena</option>
+<option value="1869">Saint Kitts and Nevis</option>
+<option value="1">Saint Lucia</option>
+<option value="508">Saint Pierre and Miquelon</option>
+<option value="1">Saint Vincent and the Grenadines</option>
+<option value="685">Samoa</option>
+<option value="378">San Marino</option>
+<option value="239">Sao Tome and Principe</option>
+<option value="966">Saudi Arabia</option>
+<option value="221">Senegal</option>
+<option value="381">Serbia</option>
+<option value="248">Seychelles</option>
+<option value="232">Sierra Leone</option>
+<option value="65">Singapore</option>
+<option value="421">Slovak Republic</option>
+<option value="386">Slovenia</option>
+<option value="677">Solomon Islands</option>
+<option value="252">Somalia</option>
+<option value="27">South Africa</option>
+<option value="34">Spain</option>
+<option value="94">Sri Lanka</option>
+<option value="249">Sudan</option>
+<option value="597">Suriname</option>
+<option value="000">Svalbard and Jan Mayen</option>
+<option value="268">Swaziland</option>
+<option value="46">Sweden</option>
+<option value="41">Switzerland</option>
+<option value="963">Syria</option>
+<option value="886">Taiwan</option>
+<option value="992">Tajikistan</option>
+<option value="255">Tanzania</option>
+<option value="66">Thailand</option>
+<option value="670">Timor-Leste</option>
+<option value="228">Togo</option>
+<option value="690">Tokelau</option>
+<option value="676">Tonga</option>
+<option value="1868">Trinidad and Tobago</option>
+<option value="216">Tunisia</option>
+<option value="90">Turkey</option>
+<option value="993">Turkmenistan</option>
+<option value="1649">Turks and Caicos Islands</option>
+<option value="688">Tuvalu</option>
+<option value="256">Uganda</option>
+<option value="380">Ukraine</option>
+<option value="971">United Arab Emirates</option>
+<option value="44">United Kingdom</option>
+<option value="598">Uruguay</option>
+<option value="998">Uzbekistan</option>
+<option value="678">Vanuatu</option>
+<option value="39">Vatican City State (Holy See)</option>
+<option value="58">Venezuela</option>
+<option value="84">Vietnam</option>
+<option value="1284">Virgin Islands (British)</option>
+<option value="1340">Virgin Islands (U.S.)</option>
+<option value="681">Wallis and Futuna</option>
+<option value="000">Western Sahara</option>
+<option value="967">Yemen</option>
+<option value="260">Zambia</option>
+<option value="263">Zimbabwe</option>
+<option value="000">Other</option>
+</select>
+<!--Country code text box-->
+                            <span id="country_code"
+                                  class="input-xlarge uneditable-input country-code">
+                            </span>
+<!--Phone number text box-->
+<input type="text" id="phone_no" class="phonenumber-textbox"
+       placeholder="Enter Phone number">
+<!--SMS send button-->
+<a id="sms_send"
+   class="btn btn-medium btn-success pull-right smssend-btn">
+    Send</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!--Secureshare message-quote-->
+<div class="row">
+    <div class="span10 offset1 text-center objectspacing quote-text">
+        "We cannot see your data. We only store your encrypted data and only you have the key to
+        it."
+    </div>
+</div>
+</div>
+
+
+<!-- For footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <!--Instructions-->
+            <div class="offset1 span5">
+                <i class="icon-check"></i><strong>Instructions</strong>
+                <br/>
+                Step 1: Enter the message and select expiration criteria
+                <br/>
+                Step 2: Click “Secure”
+                <br/>
+                Step 3: Share URL generated via Gmail/Yahoo/Hotmail
+                <br/>
+                Step 4: Share PIN via SMS/Gmail/Yahoo/Hotmail
+                <br/>
+                Step 5: Receiver clicks on the URL and enters the PIN to see message
+            </div>
+            <!--How is it secure-->
+            <div class="span5">
+                <i class="icon-briefcase"></i><strong> How is it Secure?</strong>
+                <ul>
+                    <li>Data shared is encrypted with AES 256 bit encryption. There is no existing technology that
+                        can
+                        decrypt it without the key.
+                    </li>
+                    <li>Key used for encryption/decryption and the encrypted data are sent using different channels.
+                    </li>
+                    <li>A PIN is used for secondary validation.</li>
+                    <li>The message is deleted after a specified time.</li>
+                    <li>We cannot see your data. We only store your encrypted data and only you have the key to
+                        it.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+	<script>
+	$( document ).ready(function() {
+		
+		//event_reactor: eventName, event, src_object_id, reactor, data_obj_ids
+		//eventName: just a name for you to track
+		//event: should be a jQuery event like click, hover, submit etc.
+		//src_object_id: id of the html element to which we want to bind event listener. Should be in jQuery selector format like #input_box1
+		//reactor: this is the js function that will get event details. Use logging_reactor or write your own
+		//data_onj_ids: array of ids of the html element whose data needs to be recorder. The id should be in jQuery selector format.
+    	event_reactor("share_url_gmail", "click", "#shareurlgmail", "ajax_post_reactor", []);
+
+        $('#expire_option').change(function(){
+          if($('#share_url_txt').val())
+             encryptMsg('#input_txt');
+        });
+
+
+	});
+	</script>
+<a href="https://github.com/saravanacp/secureshareme">
+    <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub">
+</a>
+</body>
+</html>

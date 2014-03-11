@@ -1,0 +1,102 @@
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-image: url("/images/html_body_bg.png");
+    padding: 0px;
+}
+
+a {
+    color: #00b7ff;
+}
+
+.footer {
+    padding: 30px 0;
+    margin-top: 30px;
+    border-top: 1px solid #e5e5e5;
+    background-color: #f5f5f5;
+    font-size: small;
+}
+
+.objectspacing {
+    margin-top: 10px;
+}
+
+.hyperlink-nounderscore {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.nav-reduceheight {
+    max-height: 35px;
+}
+
+.logo {
+    width: 250px;
+}
+
+.textarea {
+    width: 98%;
+}
+
+.radiobuttons {
+    margin-left: 10px;
+}
+
+.urlpin-textbox {
+    width: 87%;
+}
+
+.sharebutton-img {
+    height: 20px;
+    padding: 2px;
+}
+
+.phonemumber-box {
+    background-color: #f5f5f5;
+    padding: 5px;
+    border: #f5f5f5;
+    border-style: solid;
+    border-width: medium;
+    margin-left: 38%;
+    max-width: 58%;
+}
+
+.country-select {
+    margin: 5px;
+    width: 90%;
+}
+
+.country-code {
+    margin-left: 5px;
+    max-width: 15%;
+}
+
+.phonenumber-textbox {
+    max-width: 61%;
+}
+
+.smssend-btn {
+    margin-right: 17px;
+}
+
+.loading-gif {
+    display: none;
+    height: 27px;
+}
+
+.quote-text {
+    font-weight: bold;
+    font-size: small;
+}
+
+.pin-request {
+    max-width: 80%;
+    min-height: 70px;
+    background-color: #f5f5f5;
+    padding-top: 50px;
+    border: #f5f5f5;
+    border-style: solid;
+    border-width: medium;
+}
+.offset1-2 {
+    margin-left: 65px;
+}

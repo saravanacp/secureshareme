@@ -1,0 +1,30 @@
+{
+  "name": "SecureShare",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "ejs": "*",
+    "stylus": "*",
+    "aws-sdk": "*",
+    "twilio": "*",
+    "winston":"*",
+    "nodeunit":"*",
+    "step":"*",
+    "config":"*",
+    "yaml":"*",
+    "sjcl":"*",
+    "jasmine-node":"*",
+    "frisby":"*",
+    "qs":"0.4.x"
+  },
+  "devDependencies": {
+	"nodemon": "*"
+  },
+  "engines": {
+    "node": "0.10.17"
+  }
+}

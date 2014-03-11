@@ -1,0 +1,6 @@
+.DS_Store
+config/runtime.json
+*.log
+.idea
+node_modules
+*.swp

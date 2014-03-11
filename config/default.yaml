@@ -1,0 +1,21 @@
+SERVER:
+  PORT: 3000
+  COOKIE_LENGTH: 20
+  COOKIE_TYPE: alphanumeric
+  FAILED_PIN_TRIES_THRESHOLD: 5
+  SMS_COUNTER_TIME_INTERVAL: 86400
+  IP_THRESHOLD: 50
+  PHONE_NUMBER_THRESHOLD: 10
+  HOST_NAME: "www.secureshareme.com"
+  HOST_PATTERN: "www\.secureshareme\.com|secureshareme\.com|secureshare\.herokuapp\.com"
+COMMON:
+  ID_LENGTH: 8
+  ID_TYPE: alphanumeric_lower_case
+  PIN_LENGTH: 6
+  PIN_TYPE: numeric
+
+
+
+
+
+

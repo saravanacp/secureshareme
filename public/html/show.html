@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Secure Share Me</title>
+    <meta name="keywords"
+          content="Secure Share Me, SecureShareMe, Secure Share, Share content securely, share securely, encrypt content, encrypt and share">
+    <meta name="description" content="Share content securely over internet. Everybody shares usernames, passwords, account numbers and sensitive data with friends and
+            family. This data can be compromised during transmission, or when stored in the sender or recipient
+            mailbox. Sharing cannot be avoided, but can be made secure. We will do it for you!">
+    <!-- Bootstrap Stylesheet-->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- External Stylesheet-->
+    <link href="/stylesheets/style.css" rel="stylesheet" media="screen">
+    <link href="/stylesheets/jquery.countdown.css" rel="stylesheet" media="screen"> 
+    <!--Javascript library-->
+    <script type='text/javascript' src='/javascripts/jquery-1.9.1.js'></script>
+    <script type="text/javascript" src="/javascripts/jquery.countdown.min.js"></script>
+    <script type='text/javascript' src='/javascripts/sjcl.js'></script>
+    <!--Custom Javascript library-->
+    <script type='text/javascript' src='/javascripts/utils.js'></script>
+    <script type='text/javascript' src='/javascripts/index.js'></script>
+    <script type='text/javascript' src='/javascripts/show.js'></script>
+    <!-- Bootstrap Javascript-->
+    <script type='text/javascript' src='/bootstrap/js/bootstrap.js'></script>
+    <script type='text/javascript' src='/bootstrap/js/jquery.bsAlerts.min.js'></script>
+</head>
+
+<body>
+<!--Main container-->
+<div class="container">
+    <div class="row nav-reduceheight">
+        <!--Navigation-->
+        <div class="span10 offset1">
+            <ul class="nav nav-pills pull-right">
+                <button id="contact" type="button" class="btn btn-inverse btn-mini objectspacing"
+                        data-content="secureshareme@watermelonlabs.com" data-placement="bottom"
+                        data-trigger="hover">
+                    <a class="hyperlink-nounderscore" href="mailto:secureshareme@watermelonlabs.com">Contact Us</a>
+                </button>
+            </ul>
+        </div>
+    </div>
+
+    <!--Logo-->
+    <div class="row">
+        <div class="span10 offset1 text-center">
+            <!-- For logo  -->
+            <img class="logo" src="/images/ssm_logo.png" alt="SecureShareMe">
+        </div>
+    </div>
+
+    <!--Secureshareme description-->
+    <div class="row">
+        <div class="span10 offset1 text-center">
+            <p class="muted">Everybody shares usernames, passwords, account numbers and sensitive data with friends and
+                family. <br/>This data can be compromised during transmission, or when stored in the sender or recipient
+                mailbox. </br> Sharing cannot be avoided, but can be made secure. We will do it for you!</p>
+        </div>
+    </div>
+
+    <!--Alerts box-->
+    <div class="row">
+        <div data-alerts="alerts" class="span10 offset1">
+        </div>
+    </div>
+
+    <!--PIN request box-->
+    <div class="row" id="enter_pin">
+        <div class="span10 offset1 text-center pin-request objectspacing">
+            <b>Enter PIN</b>
+            <input type=" text" id="pin" placeholder="Enter PIN here">
+            <a id="pin_submit"
+               class="btn btn-medium btn-success">Submit</a>
+        </div>
+    </div>
+
+
+   <!--Processing icon image -->
+    <div class="span10 offset1-2 text-center">
+    	<img src="/images/LoadingBar.gif" class="loading-gif" id="loading_image">
+    </div>
+
+    <!--Text area-->
+    <div class="row" id="display_message">
+        <div class="span10 offset1 objectspacing">
+            <b>Message:</b>
+            <div id="msg_box">
+                <textarea id="msg_text_area" class="message_box textarea" rows="5" id="message" name="message" disabled>
+                </textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Countdown timer -->
+    <div class="row" id="display_countdown">
+        <div class="span10 offset1 objectspacing">
+	    <b>Message expires in:</b>
+	    <div id="countdown" class="countdown"></div>
+	</div>
+    </div>
+
+
+    <!--Create new message-->
+    <div class="row">
+        <div class="span10 offset1 text-center" style="margin-top: 40px">
+            <a onClick="createnewmessage()"
+               class="btn btn-primary btn-medium btn-success">Share new message</a>
+        </div>
+    </div>
+
+    <!--Secureshare message-quote-->
+    <div class="row">
+        <div class="span10 offset1 text-center objectspacing quote-text">
+            "We cannot see your data. We only store your encrypted data and only you have the key to
+            it."
+        </div>
+    </div>
+</div>
+<a href="https://github.com/saravanacp/secureshareme">
+    <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub">
+</a>
+
+<!-- For footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="span10 offset1">
+                <i class="icon-briefcase"></i><strong> How is it Secure?</strong>
+                <ul>
+                    <li>Data shared is encrypted with AES 256 bit encryption. There is no existing technology that
+                        can
+                        decrypt it without the key.
+                    </li>
+                    <li>Key used for encryption/decryption and the encrypted data are sent using different channels.
+                    </li>
+                    <li>A PIN is used for secondary validation.</li>
+                    <li>The message is deleted after a specified time.</li>
+                    <li>We cannot see your data. We only store your encrypted data and only you have the key to
+                        it.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
